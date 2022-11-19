@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './calculator.sass';
+import './calculator.scss';
 
 export const Calculator = () => {
 	return <section className="calculator">Калькулятор</section>;

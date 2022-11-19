@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Calculator } from '../calculator';
-import '../../style/index.sass';
+import '../../style/index.scss';
 
 export const App = () => {
 	return (
