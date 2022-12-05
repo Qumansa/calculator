@@ -3,6 +3,7 @@ import './calculator.scss';
 
 export const Calculator = () => {
 	const [inputData, setInputData] = useState('');
+	const [history, setHistory] = useState('Введите данные');
 
 	const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		let value = e.target.value;
@@ -11,6 +12,8 @@ export const Calculator = () => {
 		const valueLastElemIsMathSymbol = /[+-/*]/g.test(valueLastElem);
 		const valueNextToLastElemIsMathSymbol = /[+-/*]/g.test(valueNextToLastElem);
 
+		value = value.replace(/^0/, '');
+		value = value.replace(/[.,]/g, '');
 		value = value.replace(/[^\d+-/*]/g, '');
 
 		if (valueLastElemIsMathSymbol) {
@@ -25,6 +28,7 @@ export const Calculator = () => {
 	};
 
 	const onClickAllClear = () => {
+		setHistory('Введите данные');
 		setInputData('');
 	};
 
@@ -35,7 +39,7 @@ export const Calculator = () => {
 	const onClickMathSymbol = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const lastInputDataElem = inputData[inputData.length - 1];
 		const mathSymbol = e.currentTarget.dataset.symbol;
-		const lastElemIsMathSymbol = /[+-/*]/g.test(lastInputDataElem);
+		const lastElemIsMathSymbol = /[+-/*.]/g.test(lastInputDataElem);
 
 		if (inputData.length === 0 || lastInputDataElem === mathSymbol) return;
 
@@ -50,16 +54,27 @@ export const Calculator = () => {
 		setInputData(`${inputData}${e.currentTarget.textContent}`);
 	};
 
+	const onSubmit = (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+
+		setHistory(inputData);
+		setInputData(eval(inputData));
+	};
+
 	return (
 		<section className="calculator">
-			<span className="calculator__output">Введите данные</span>
-			<input
-				type="text"
-				className="calculator__input-data"
-				placeholder="0"
-				value={inputData}
-				onChange={onChangeInput}
-			/>
+			<span className="calculator__history">{history}</span>
+			<form
+				className="calculator__form"
+				onSubmit={onSubmit}>
+				<input
+					type="text"
+					className="calculator__input-data"
+					placeholder="0"
+					value={inputData}
+					onChange={onChangeInput}
+				/>
+			</form>
 			<ul className="calculator__list">
 				<li className="calculator__item calculator__item_all-clear">
 					<button
@@ -201,7 +216,11 @@ export const Calculator = () => {
 					</button>
 				</li>
 				<li className="calculator__item calculator__item_equals">
-					<button className="calculator__button calculator__button_equals">=</button>
+					<button
+						className="calculator__button calculator__button_equals"
+						onClick={onSubmit}>
+						=
+					</button>
 				</li>
 				<li className="calculator__item calculator__item_0">
 					<button
@@ -210,9 +229,9 @@ export const Calculator = () => {
 						0
 					</button>
 				</li>
-				<li className="calculator__item calculator__item_point">
+				{/* <li className="calculator__item calculator__item_point">
 					<button className="calculator__button calculator__button_point">.</button>
-				</li>
+				</li> */}
 			</ul>
 		</section>
 	);
