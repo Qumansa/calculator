@@ -1,5 +1,118 @@
+@import '../../style/variables';
+
 .calculator {
     max-width: 37.5rem;
+    margin: 3rem 0;
+    padding: 4.2rem 3.3rem;
+
     background: linear-gradient(191.34deg, #17181A -4.95%, #17181A 103.74%);
-    border-radius: 39px;
+    border-radius: 3.9rem;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+
+    &__output {
+        display: inline-block;
+
+        width: 100%;
+        margin-top: 5rem;
+
+        font-size: 2.4rem;
+        font-weight: 400;
+        line-height: 3.6rem;
+        color: $gray;
+        text-align: right;
+    }
+
+    &__input-data {
+        width: 100%;
+        margin-top: 0.6rem;
+
+        font-size: 4.8rem;
+        line-height: 7.2rem;
+        color: $white;
+        text-align: right;
+
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        &::placeholder {
+            color: inherit;
+        }
+    }
+
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 6rem);
+        gap: 2rem;
+        place-items: center;
+
+        margin-top: 3rem;
+    }
+
+    &__item {
+        &_equals {
+            grid-column: 4 / 5;
+            grid-row: 4 / 6;
+            height: 100%;
+        }
+
+        &_0 {
+            grid-column: 1 / 3;
+            grid-row: 5 / 6;
+            width: 100%;
+        }
+    }
+
+
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 6.2rem;
+        height: 6rem;
+
+        font-size: 3.2rem;
+        line-height: 4.8rem;
+
+        background-color: $shark;
+        border-radius: 1.6rem;
+
+        &_all-clear,
+        &_backspace,
+        &_divide,
+        &_multiply {
+            height: 6.2rem;
+        }
+
+        &_divide,
+        &_multiply,
+        &_minus,
+        &_plus {
+            background-color: $endeavour;
+        }
+
+        &_all-clear,
+        &_backspace {
+            background-color: $doveGray;
+        }
+
+        &_all-clear {
+            font-size: 2.4rem;
+            font-weight: 400;
+            line-height: 3.6rem;
+            color: $silverChalice;
+        }
+
+        &_0 {
+            width: 100%;
+        }
+
+        &_equals {
+            height: 100%;
+            color: $anakiwaLight;
+            background-color: $dodgerBlueLight;
+        }
+    }
 }
